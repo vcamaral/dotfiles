@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+set -e
+
+function exit_with_message() {
+  echo $1
+  exit 1
+}
+
+# First, retrieve the zip file from Github.
+# It will use wget or curl (whichever is defined).
+curl_available=$(command -v curl)
+wget_available=$(command -v wget)
+unzip_available=$(command -v unzip)
+
+dotfiles_dir="$(dirname $0)"
+dotfiles_zip=/tmp/dotfiles-master.zip
+dotfiles_url=https://github.com/vcamaral/dotfiles/archive/master.zip
+
+if [[ "$unzip_available" = "" ]]; then
+  exit_with_message "#=> Make sure you have the unzip command available."
+fi
+
+# Check if installation must be from local files. 
+# If not, download zip file and extract it to tmp directory.
+if [[ ! -d "${dotfiles_dir}/files" ]]; then
+  dotfiles_dir=/tmp/dotfiles-master
+
+  echo "#=> Downloading $dotfiles_url to $dotfiles_zip"
+
+  if [[ "$curl_available" != "" ]]; then
+    curl -Ls -o $dotfiles_zip $dotfiles_url
+  elif [[ "$wget_available" != "" ]]; then
+    wget -q -O $dotfiles_zip $dotfiles_url
+  else
+    exit_with_message "#=> Please make sure curl or wget is installed."
+  fi
+
+  [ -f "$dotfiles_zip" ] || exit_with_message "#=> ERROR: Couldn't download ${dotfiles_url}."
+
+  # Now, unzip the directory.
+  rm -rf $dotfiles_dir
+  unzip -q $dotfiles_zip -d /tmp
+fi
+
+shell_name="zsh"
+
+# Copy files.
+cp -R ${dotfiles_dir}/files/.${shell_name} $HOME/
+find ${dotfiles_dir}/files/common -maxdepth 1 -mindepth 1 -exec cp -R "{}" $HOME/.${shell_name} \;
+
+# Source init file.
+source $HOME/.zsh/exports.sh
+
+# Set up local directory.
+mkdir -p $HOME/local
+[ -x "/usr/bin/chflags" ] && chflags hidden $HOME/local
+
+# Copy binaries to ~/local/bin.
+echo -n "#=> Copying binaries... "
+find ${dotfiles_dir}/files/home -maxdepth 1 -mindepth 1 -exec cp -R "{}" $HOME/ \;
+cp -R $dotfiles_dir/files/bin $HOME/local
+find $HOME/local/bin -type f -exec chmod +x {} \;
+echo "OK"
+
+# macOS hacks.
+if [[ "$(uname)" == "Darwin" ]]; then
+  echo -n "#=> macOS hacks... "
+  sh ${dotfiles_dir}/files/macOS.sh
+  echo "OK"
+fi
+
+echo "#=> Done! Restart your terminal!"
