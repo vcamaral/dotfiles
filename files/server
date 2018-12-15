@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+port=$1
+
+if [[ "$port" == "" ]]; then
+  python -m SimpleHTTPServer
+else
+    python -m SimpleHTTPServer $port
+fi
