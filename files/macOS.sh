@@ -182,7 +182,7 @@ defaults write com.apple.dock autohide -bool true
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
 
-# Use Dock on the left
+# Use Dock on the bottom
 defaults write com.apple.dock orientation -string "bottom"
 
 # Enable the 2D Dock
