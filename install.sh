@@ -38,7 +38,7 @@ ln -sf "$DOTFILES_DIR/aliases.sh" "$HOME/.aliases"
 ok "Symlink created (~/.aliases)"
 
 if ! grep -q "source ~/.aliases" "$HOME/.zshrc" 2>/dev/null; then
-  printf '\nsource ~/.aliases\n' >> "$HOME/.zshrc"
+  echo $'\nsource ~/.aliases' >> "$HOME/.zshrc"
   ok "Added source to .zshrc"
 else
   info "Already sourced in .zshrc — skipping"
