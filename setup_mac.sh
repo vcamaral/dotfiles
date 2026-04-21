@@ -76,7 +76,7 @@ install_zsh_plugin() {
   fi
 }
 
-install_zsh_plugin "zdharma/fast-syntax-highlighting"
+install_zsh_plugin "zdharma-continuum/fast-syntax-highlighting"
 install_zsh_plugin "zsh-users/zsh-autosuggestions"
 install_zsh_plugin "zsh-users/zsh-completions"
 
