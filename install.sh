@@ -49,5 +49,3 @@ fi
 # ──────────────────────────────────────────────
 printf "\n${BOLD}${CYAN}Running setup...${RESET}\n"
 bash "$DOTFILES_DIR/setup_mac.sh"
-
-source "$HOME/.zshrc" &>/dev/null || true
