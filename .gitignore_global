@@ -1,0 +1,8 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+*.log
+*.swp
+.env
+.env.local

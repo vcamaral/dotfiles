@@ -37,6 +37,12 @@ printf "\n${BOLD}${CYAN}Setting up aliases...${RESET}\n"
 ln -sf "$DOTFILES_DIR/aliases.sh" "$HOME/.aliases"
 ok "Symlink created (~/.aliases)"
 
+ln -sf "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
+ok "Symlink created (~/.gitconfig)"
+
+ln -sf "$DOTFILES_DIR/.gitignore_global" "$HOME/.gitignore_global"
+ok "Symlink created (~/.gitignore_global)"
+
 if ! grep -q "source ~/.aliases" "$HOME/.zshrc" 2>/dev/null; then
   echo $'\nsource ~/.aliases' >> "$HOME/.zshrc"
   ok "Added source to .zshrc"
