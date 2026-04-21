@@ -253,5 +253,3 @@ printf "  App Store — download and configure\n"
 printf "    · Amphetamine\n"
 printf "    · Magnet\n"
 printf "${RESET}\n"
-
-source "$HOME/.zshrc" &>/dev/null || true

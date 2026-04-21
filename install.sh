@@ -9,7 +9,7 @@ DIM="\033[2m"
 RESET="\033[0m"
 
 DOTFILES_DIR="$HOME/dotfiles"
-REPO="https://github.com/vcamaral/dotfiles.git"
+REPO="git@github.com:vcamaral/dotfiles.git"
 
 ok()   { printf "  ${GREEN}✓${RESET} ${DIM}$1${RESET}\n"; }
 info() { printf "  ${DIM}$1${RESET}\n"; }
@@ -30,7 +30,24 @@ else
 fi
 
 # ──────────────────────────────────────────────
+# Aliases
+# ──────────────────────────────────────────────
+printf "\n${BOLD}${CYAN}Setting up aliases...${RESET}\n"
+
+ln -sf "$DOTFILES_DIR/aliases.sh" "$HOME/.aliases"
+ok "Symlink created (~/.aliases)"
+
+if ! grep -q "source ~/.aliases" "$HOME/.zshrc" 2>/dev/null; then
+  echo '\nsource ~/.aliases' >> "$HOME/.zshrc"
+  ok "Added source to .zshrc"
+else
+  info "Already sourced in .zshrc — skipping"
+fi
+
+# ──────────────────────────────────────────────
 # Run setup
 # ──────────────────────────────────────────────
 printf "\n${BOLD}${CYAN}Running setup...${RESET}\n"
 bash "$DOTFILES_DIR/setup_mac.sh"
+
+source "$HOME/.zshrc" &>/dev/null || true
