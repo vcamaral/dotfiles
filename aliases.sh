@@ -1,4 +1,9 @@
 # ──────────────────────────────────────────────
+# Dotfiles
+# ──────────────────────────────────────────────
+alias dotfiles="source ~/dotfiles/install.sh"
+
+# ──────────────────────────────────────────────
 # Navigation
 # ──────────────────────────────────────────────
 alias ..="cd .."
@@ -30,6 +35,21 @@ alias reload="source ~/.zshrc"
 alias hosts="sudo nano /etc/hosts"
 alias flushdns="sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo 'SSH key copied to clipboard'"
+
+# ──────────────────────────────────────────────
+# Utilities
+# ──────────────────────────────────────────────
+alias c="clear"
+alias h="history"
+alias grep="grep --color=auto"
+alias port="lsof -i"
+alias myip="localip && externalip"
+
+# ──────────────────────────────────────────────
+# Clipboard
+# ──────────────────────────────────────────────
+alias copy="pbcopy"
+alias paste="pbpaste"
 
 # ──────────────────────────────────────────────
 # Network
