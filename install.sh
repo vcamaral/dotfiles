@@ -2,10 +2,17 @@
 
 set -e
 
-source "$(dirname "$0")/lib.sh"
+BOLD="\033[1m"
+GREEN="\033[32m"
+CYAN="\033[36m"
+DIM="\033[2m"
+RESET="\033[0m"
 
 DOTFILES_DIR="$HOME/dotfiles"
 REPO="git@github.com:vcamaral/dotfiles.git"
+
+ok()   { printf "  ${GREEN}✓${RESET} ${DIM}$1${RESET}\n"; }
+info() { printf "  ${DIM}$1${RESET}\n"; }
 
 printf "\n${BOLD}${CYAN}dotfiles — install${RESET}\n\n"
 

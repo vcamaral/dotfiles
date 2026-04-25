@@ -2,7 +2,15 @@
 
 set -e
 
-source "$(dirname "$0")/lib.sh"
+# ──────────────────────────────────────────────
+# Colors & helpers
+# ──────────────────────────────────────────────
+BOLD="\033[1m"
+DIM="\033[2m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+CYAN="\033[36m"
+RESET="\033[0m"
 
 TOTAL=7
 CURRENT=0
@@ -11,6 +19,10 @@ step() {
   CURRENT=$((CURRENT + 1))
   printf "\n${BOLD}[${CURRENT}/${TOTAL}]${RESET} ${CYAN}$1${RESET}\n"
 }
+
+ok()   { printf "  ${GREEN}✓${RESET} ${DIM}$1${RESET}\n"; }
+skip() { printf "  ${DIM}↩ $1 — skipped${RESET}\n"; }
+info() { printf "  ${DIM}$1${RESET}\n"; }
 
 # ──────────────────────────────────────────────
 # Homebrew
@@ -68,6 +80,7 @@ install_zsh_plugin "zdharma-continuum/fast-syntax-highlighting"
 install_zsh_plugin "zsh-users/zsh-autosuggestions"
 install_zsh_plugin "zsh-users/zsh-completions"
 
+# Add plugins to .zshrc if not already present
 if ! grep -q "fast-syntax-highlighting" "$HOME/.zshrc" 2>/dev/null; then
   sed -i '' 's/^plugins=(\(.*\))/plugins=(\1 fast-syntax-highlighting zsh-autosuggestions zsh-completions)/' "$HOME/.zshrc"
   ok "Plugins added to .zshrc"
@@ -94,28 +107,21 @@ install_cask() {
   fi
 }
 
-casks=(
-  "google-chrome|Google Chrome|/Applications/Google Chrome.app"
-  "1password|1Password|/Applications/1Password.app"
-  "visual-studio-code|VS Code|/Applications/Visual Studio Code.app"
-  "google-drive|Google Drive|/Applications/Google Drive.app"
-  "whatsapp|WhatsApp|/Applications/WhatsApp.app"
-  "raycast|Raycast|/Applications/Raycast.app"
-  "spotify|Spotify|/Applications/Spotify.app"
-  "slack|Slack|/Applications/Slack.app"
-  "claude|Claude|/Applications/Claude.app"
-  "todoist|Todoist|/Applications/Todoist.app"
-  "obsidian|Obsidian|/Applications/Obsidian.app"
-  "the-unarchiver|The Unarchiver|/Applications/The Unarchiver.app"
-  "iterm2|iTerm2|/Applications/iTerm.app"
-  "languagetool-desktop|LanguageTool for Desktop|/Applications/LanguageTool for Desktop.app"
-  "cleanshot|CleanShot X|/Applications/CleanShot X.app"
-)
-
-for entry in "${casks[@]}"; do
-  IFS="|" read -r cask name app_path <<< "$entry"
-  install_cask "$cask" "$name" "$app_path"
-done
+install_cask "google-chrome"        "Google Chrome"            "/Applications/Google Chrome.app"
+install_cask "1password"            "1Password"                "/Applications/1Password.app"
+install_cask "visual-studio-code"   "VS Code"                  "/Applications/Visual Studio Code.app"
+install_cask "google-drive"         "Google Drive"             "/Applications/Google Drive.app"
+install_cask "whatsapp"             "WhatsApp"                 "/Applications/WhatsApp.app"
+install_cask "raycast"              "Raycast"                  "/Applications/Raycast.app"
+install_cask "spotify"              "Spotify"                  "/Applications/Spotify.app"
+install_cask "slack"                "Slack"                    "/Applications/Slack.app"
+install_cask "claude"               "Claude"                   "/Applications/Claude.app"
+install_cask "todoist"              "Todoist"                  "/Applications/Todoist.app"
+install_cask "obsidian"             "Obsidian"                 "/Applications/Obsidian.app"
+install_cask "the-unarchiver"       "The Unarchiver"           "/Applications/The Unarchiver.app"
+install_cask "iterm2"               "iTerm2"                   "/Applications/iTerm.app"
+install_cask "languagetool-desktop" "LanguageTool for Desktop" "/Applications/LanguageTool for Desktop.app"
+install_cask "cleanshot"            "CleanShot X"              "/Applications/CleanShot X.app"
 
 if ! command -v dockutil &>/dev/null; then
   info "Installing dockutil..."
@@ -130,23 +136,15 @@ fi
 # ──────────────────────────────────────────────
 step "Dock"
 
-dock_apps=(
-  "/Applications/Google Chrome.app"
-  "/Applications/Claude.app"
-  "/Applications/Slack.app"
-  "/Applications/WhatsApp.app"
-  "/Applications/Todoist.app"
-  "/Applications/Obsidian.app"
-  "/Applications/Spotify.app"
-  "/Applications/Visual Studio Code.app"
-)
-
 dockutil --remove all --no-restart &>/dev/null
-
-for app in "${dock_apps[@]}"; do
-  dockutil --add "$app" --no-restart &>/dev/null
-done
-
+dockutil --add "/Applications/Google Chrome.app"      --no-restart &>/dev/null
+dockutil --add "/Applications/Claude.app"             --no-restart &>/dev/null
+dockutil --add "/Applications/Slack.app"              --no-restart &>/dev/null
+dockutil --add "/Applications/WhatsApp.app"           --no-restart &>/dev/null
+dockutil --add "/Applications/Todoist.app"            --no-restart &>/dev/null
+dockutil --add "/Applications/Obsidian.app"           --no-restart &>/dev/null
+dockutil --add "/Applications/Spotify.app"            --no-restart &>/dev/null
+dockutil --add "/Applications/Visual Studio Code.app" --no-restart &>/dev/null
 dockutil --add "$HOME/Downloads" --view fan --display folder --sort dateadded --no-restart &>/dev/null
 
 defaults write com.apple.dock tilesize       -int 256
@@ -227,7 +225,7 @@ ok "Spotlight shortcut disabled"
 # ──────────────────────────────────────────────
 step "Wallpaper"
 
-WALLPAPER_URL="https://misc-assets.raycast.com/wallpapers/mono_dark_distortion_2.heic"
+WALLPAPER_URL="https://misc-assets.raycast.com/wallpapers/mono_dark_distortion_1.heic"
 WALLPAPER_PATH="$HOME/Pictures/wallpaper.heic"
 
 curl -fsSL "$WALLPAPER_URL" -o "$WALLPAPER_PATH" &>/dev/null

@@ -3,20 +3,21 @@
 # ──────────────────────────────────────────────
 alias ..="cd .."
 alias ...="cd ../.."
+alias ~="cd ~"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 
 # ──────────────────────────────────────────────
 # Listing
 # ──────────────────────────────────────────────
-alias ls="ls -lh"
-alias la="ls -lha"
+alias ls="ls -la"
+alias ll="ls -lh"
 
 # ──────────────────────────────────────────────
 # Git
 # ──────────────────────────────────────────────
 alias gs="git status"
-alias ga="git add"
+alias ga="git add ."
 alias gc="git commit -m"
 alias gp="git push"
 alias gl="git log --oneline --graph"
@@ -28,17 +29,7 @@ alias gco="git checkout"
 alias reload="source ~/.zshrc"
 alias hosts="sudo nano /etc/hosts"
 alias flushdns="sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
-pubkey() {
-  local key
-  for key in ~/.ssh/id_ed25519.pub ~/.ssh/id_rsa.pub; do
-    if [[ -f "$key" ]]; then
-      pbcopy < "$key" && echo "SSH key copied to clipboard ($key)"
-      return
-    fi
-  done
-  echo "No SSH public key found in ~/.ssh" >&2
-  return 1
-}
+alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo 'SSH key copied to clipboard'"
 
 # ──────────────────────────────────────────────
 # Utilities
@@ -46,7 +37,7 @@ pubkey() {
 alias c="clear"
 alias h="history"
 alias grep="grep --color=auto"
-port() { lsof -i ":$1"; }
+alias port="lsof -i"
 alias myip="localip && externalip"
 
 # ──────────────────────────────────────────────
@@ -64,4 +55,4 @@ alias externalip="curl -s https://ipinfo.io/ip && echo"
 # ──────────────────────────────────────────────
 # Homebrew
 # ──────────────────────────────────────────────
-alias brewup="brew update && brew upgrade && brew cleanup"
+alias brewup="brew upgrade \$(brew outdated)"
