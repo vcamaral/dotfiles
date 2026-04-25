@@ -225,7 +225,7 @@ ok "Spotlight shortcut disabled"
 # ──────────────────────────────────────────────
 step "Wallpaper"
 
-WALLPAPER_URL="https://misc-assets.raycast.com/wallpapers/mono_dark_distortion_1.heic"
+WALLPAPER_URL="https://misc-assets.raycast.com/wallpapers/mono_dark_distortion_2.heic"
 WALLPAPER_PATH="$HOME/Pictures/wallpaper.heic"
 
 curl -fsSL "$WALLPAPER_URL" -o "$WALLPAPER_PATH" &>/dev/null
