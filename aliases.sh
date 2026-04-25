@@ -2,7 +2,6 @@
 # Navigation
 # ──────────────────────────────────────────────
 alias ..="cd .."
-alias ...="cd ../.."
 alias ~="cd ~"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"

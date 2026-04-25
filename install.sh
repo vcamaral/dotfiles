@@ -52,9 +52,6 @@ printf "\n${BOLD}${CYAN}Setting up git...${RESET}\n"
 ln -sf "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 ok "Symlink created (~/.gitconfig)"
 
-ln -sf "$DOTFILES_DIR/.gitignore_global" "$HOME/.gitignore_global"
-ok "Symlink created (~/.gitignore_global)"
-
 # ──────────────────────────────────────────────
 # Run setup
 # ──────────────────────────────────────────────
