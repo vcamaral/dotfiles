@@ -148,9 +148,9 @@ dockutil --add "/Applications/Visual Studio Code.app" --no-restart &>/dev/null
 dockutil --add "/Applications/iTerm.app"              --no-restart &>/dev/null
 dockutil --add "$HOME/Downloads" --view fan --display folder --sort dateadded --no-restart &>/dev/null
 
-defaults write com.apple.dock tilesize       -int 52
+defaults write com.apple.dock tilesize       -int 56
 defaults write com.apple.dock magnification  -bool true
-defaults write com.apple.dock largesize      -int 83
+defaults write com.apple.dock largesize      -int 91
 defaults write com.apple.dock show-recents   -bool false
 defaults write com.apple.dock autohide       -bool true
 defaults write com.apple.dock autohide-delay -float 0
