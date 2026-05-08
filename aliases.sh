@@ -50,6 +50,7 @@ alias paste="pbpaste"
 # ──────────────────────────────────────────────
 alias localip="ipconfig getifaddr en0"
 alias externalip="curl -s https://ipinfo.io/ip && echo"
+alias vps="ssh vcamaral@2.24.79.105"
 
 # ──────────────────────────────────────────────
 # Homebrew
