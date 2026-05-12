@@ -50,7 +50,9 @@ alias paste="pbpaste"
 # ──────────────────────────────────────────────
 alias localip="ipconfig getifaddr en0"
 alias externalip="curl -s https://ipinfo.io/ip && echo"
-alias vps="ssh vcamaral@2.24.79.105"
+VPS_HOST="vcamaral@2.24.79.105"
+alias vps="ssh $VPS_HOST"
+vpstunnel() { ssh -L "${1:-8080}:localhost:${1:-8080}" "$VPS_HOST"; }
 
 # ──────────────────────────────────────────────
 # Homebrew
