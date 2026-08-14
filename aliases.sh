@@ -91,5 +91,5 @@ curlmtls() {
 
   local extra=()
   [[ -n "$cacert" ]] && extra=(--cacert "$cacert")
-  curl -v --cert "$cert" --key "$key" "${extra[@]}" "$url"
+  curl --cert "$cert" --key "$key" "${extra[@]}" "$url"
 }
