@@ -58,3 +58,38 @@ vpstunnel() { ssh -L "${1:-8080}:localhost:${1:-8080}" "$VPS_HOST"; }
 # Homebrew
 # ──────────────────────────────────────────────
 alias brewup="brew upgrade \$(brew outdated)"
+
+# ──────────────────────────────────────────────
+# mTLS / Certificates
+# ──────────────────────────────────────────────
+# curlmtls <url> [cert] [key] [cacert]
+# Sem cert/key/cacert, procura *.crt/*.key/*.pem no diretório atual.
+curlmtls() {
+  local url="$1" cert="$2" key="$3" cacert="$4"
+
+  if [[ -z "$url" ]]; then
+    echo "Uso: curlmtls <url> [cert] [key] [cacert]"
+    return 1
+  fi
+
+  [[ -z "$cert" ]] && cert=$(command ls -1 *.crt 2>/dev/null | head -1)
+  [[ -z "$key" ]] && key=$(command ls -1 *.key 2>/dev/null | head -1)
+  [[ -z "$cacert" ]] && cacert=$(command ls -1 *.pem 2>/dev/null | head -1)
+
+  if [[ -z "$cert" || -z "$key" ]]; then
+    echo "Certificado ou chave não encontrados (esperado *.crt e *.key no diretório atual, ou passe os caminhos explicitamente)."
+    return 1
+  fi
+
+  cert=$(realpath "$cert")
+  key=$(realpath "$key")
+  [[ -n "$cacert" ]] && cacert=$(realpath "$cacert")
+
+  echo "cert:   $cert"
+  echo "key:    $key"
+  [[ -n "$cacert" ]] && echo "cacert: $cacert"
+
+  local extra=()
+  [[ -n "$cacert" ]] && extra=(--cacert "$cacert")
+  curl -v --cert "$cert" --key "$key" "${extra[@]}" "$url"
+}
