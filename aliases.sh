@@ -63,12 +63,12 @@ alias brewup="brew upgrade \$(brew outdated)"
 # mTLS / Certificates
 # ──────────────────────────────────────────────
 # curlmtls <url> [cert] [key] [cacert]
-# Sem cert/key/cacert, procura *.crt/*.key/*.pem no diretório atual.
+# Without cert/key/cacert, looks for *.crt/*.key/*.pem in the current directory.
 curlmtls() {
   local url="$1" cert="$2" key="$3" cacert="$4"
 
   if [[ -z "$url" ]]; then
-    echo "Uso: curlmtls <url> [cert] [key] [cacert]"
+    echo "Usage: curlmtls <url> [cert] [key] [cacert]"
     return 1
   fi
 
@@ -77,7 +77,7 @@ curlmtls() {
   [[ -z "$cacert" ]] && cacert=$(command ls -1 *.pem 2>/dev/null | head -1)
 
   if [[ -z "$cert" || -z "$key" ]]; then
-    echo "Certificado ou chave não encontrados (esperado *.crt e *.key no diretório atual, ou passe os caminhos explicitamente)."
+    echo "Cert or key not found (expected *.crt and *.key in the current directory, or pass the paths explicitly)."
     return 1
   fi
 
