@@ -116,7 +116,6 @@ install_cask "raycast"              "Raycast"                  "/Applications/Ra
 install_cask "spotify"              "Spotify"                  "/Applications/Spotify.app"
 install_cask "slack"                "Slack"                    "/Applications/Slack.app"
 install_cask "claude"               "Claude"                   "/Applications/Claude.app"
-install_cask "chatgpt"              "ChatGPT"                  "/Applications/ChatGPT.app"
 install_cask "todoist"              "Todoist"                  "/Applications/Todoist.app"
 install_cask "obsidian"             "Obsidian"                 "/Applications/Obsidian.app"
 install_cask "the-unarchiver"       "The Unarchiver"           "/Applications/The Unarchiver.app"
@@ -140,7 +139,6 @@ step "Dock"
 dockutil --remove all --no-restart &>/dev/null
 dockutil --add "/Applications/Google Chrome.app"      --no-restart &>/dev/null
 dockutil --add "/Applications/Claude.app"             --no-restart &>/dev/null
-dockutil --add "/Applications/ChatGPT.app"            --no-restart &>/dev/null
 dockutil --add "/Applications/Slack.app"              --no-restart &>/dev/null
 dockutil --add "/Applications/WhatsApp.app"           --no-restart &>/dev/null
 dockutil --add "/Applications/Todoist.app"            --no-restart &>/dev/null
