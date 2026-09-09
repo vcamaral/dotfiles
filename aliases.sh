@@ -54,6 +54,27 @@ VPS_HOST="vcamaral@2.24.79.105"
 alias vps="ssh $VPS_HOST"
 vpstunnel() { ssh -L "${1:-8080}:localhost:${1:-8080}" "$VPS_HOST"; }
 
+# online [interval_seconds]: check if the internet is reachable; if it's down,
+# keep retrying forever (Ctrl+C to stop) until it comes back, then beep and notify.
+online() {
+  local interval="${1:-5}"
+
+  if ping -q -c 1 -t 2 1.1.1.1 &>/dev/null; then
+    echo "Internet: online"
+    return 0
+  fi
+
+  echo "Internet: offline, retrying every ${interval}s (Ctrl+C to stop)..."
+  while ! ping -q -c 1 -t 2 1.1.1.1 &>/dev/null; do
+    echo "$(date '+%H:%M:%S') offline, retrying in ${interval}s..."
+    sleep "$interval"
+  done
+
+  echo "$(date '+%H:%M:%S') internet is back online"
+  afplay /System/Library/Sounds/Glass.aiff &>/dev/null
+  osascript -e 'display notification "Internet connection restored" with title "online"' &>/dev/null
+}
+
 # ──────────────────────────────────────────────
 # Homebrew
 # ──────────────────────────────────────────────
