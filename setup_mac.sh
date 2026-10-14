@@ -12,7 +12,9 @@ YELLOW="\033[33m"
 CYAN="\033[36m"
 RESET="\033[0m"
 
-TOTAL=7
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+TOTAL=8
 CURRENT=0
 
 step() {
@@ -222,6 +224,24 @@ defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "
 
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 ok "Spotlight shortcut disabled"
+
+# ──────────────────────────────────────────────
+# Quick Actions
+# ──────────────────────────────────────────────
+step "Quick Actions"
+
+SERVICES_DIR="$HOME/Library/Services"
+mkdir -p "$SERVICES_DIR"
+
+for wf in "$DOTFILES_DIR"/quick-actions/*.workflow; do
+  name=$(basename "$wf" .workflow)
+  rm -rf "$SERVICES_DIR/$name.workflow"
+  cp -R "$wf" "$SERVICES_DIR/"
+  ok "$name"
+done
+
+/System/Library/CoreServices/pbs -flush &>/dev/null || true
+/System/Library/CoreServices/pbs -update &>/dev/null || true
 
 # ──────────────────────────────────────────────
 # Wallpaper

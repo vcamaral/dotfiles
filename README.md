@@ -9,6 +9,7 @@ dotfiles/
 ├── install.sh          # sets up symlinks and runs setup_mac.sh
 ├── setup_mac.sh        # installs apps and configures macOS
 ├── aliases.sh          # shell aliases (symlinked to ~/.aliases)
+├── quick-actions/      # Finder Quick Actions (copied to ~/Library/Services)
 ├── .gitconfig          # git configuration (symlinked to ~/.gitconfig)
 └── .gitignore_global   # global gitignore (symlinked to ~/.gitignore_global)
 ```
@@ -35,7 +36,15 @@ dotfiles/
 - Configures the **Dock** (layout, size, auto-hide, no recents)
 - Configures **Finder** (extensions, sorting, search scope)
 - Disables **Spotlight** shortcut in favor of Raycast
+- Installs **Quick Actions** from `quick-actions/` (right-click in Finder → Quick Actions)
 - Sets **wallpaper**
+
+### quick-actions/
+- **Set Wallpaper on All Displays** — sets the selected image as wallpaper on every connected display
+
+To add a new one, create it in Automator (File → New → Quick Action), save it, and move the
+`.workflow` bundle into `quick-actions/`. Keep the plists as XML so diffs are readable:
+`plutil -convert xml1 quick-actions/*.workflow/Contents/*`
 
 ### aliases.sh
 - Navigation shortcuts (`..`, `...`, `dl`, `dt`)
@@ -73,6 +82,9 @@ bash ~/dotfiles/install.sh && source ~/.zshrc
 - Raycast — set `Cmd+Space` as shortcut
 - CleanShot X
 - LanguageTool
+
+**Quick Actions**
+- Allow access to "System Events" on first use (System Settings → Privacy & Security → Automation)
 
 **App Store — download and configure**
 - Amphetamine
