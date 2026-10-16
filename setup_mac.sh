@@ -125,6 +125,11 @@ install_cask "iterm2"               "iTerm2"                   "/Applications/iT
 install_cask "languagetool-desktop" "LanguageTool for Desktop" "/Applications/LanguageTool for Desktop.app"
 install_cask "cleanshot"            "CleanShot X"              "/Applications/CleanShot X.app"
 
+# My own apps, from github.com/vcamaral/homebrew-tap
+brew tap vcamaral/tap &>/dev/null
+install_cask "vcamaral/tap/utter"      "Utter"      "/Applications/Utter.app"
+install_cask "vcamaral/tap/notchhider" "NotchHider" "/Applications/NotchHider.app"
+
 if ! command -v dockutil &>/dev/null; then
   info "Installing dockutil..."
   brew install dockutil --quiet &>/dev/null

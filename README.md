@@ -33,6 +33,7 @@ dotfiles/
   - WhatsApp, Raycast, Spotify, Slack, Claude
   - Todoist, Obsidian, The Unarchiver, iTerm2
   - LanguageTool for Desktop, CleanShot X
+  - My own apps, from [vcamaral/homebrew-tap](https://github.com/vcamaral/homebrew-tap): Utter, NotchHider
 - Configures the **Dock** (layout, size, auto-hide, no recents)
 - Configures **Finder** (extensions, sorting, search scope)
 - Disables **Spotlight** shortcut in favor of Raycast
