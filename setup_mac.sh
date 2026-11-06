@@ -124,6 +124,7 @@ install_cask "the-unarchiver"       "The Unarchiver"           "/Applications/Th
 install_cask "iterm2"               "iTerm2"                   "/Applications/iTerm.app"
 install_cask "languagetool-desktop" "LanguageTool for Desktop" "/Applications/LanguageTool for Desktop.app"
 install_cask "cleanshot"            "CleanShot X"              "/Applications/CleanShot X.app"
+install_cask "vcamaral/tap/netstatus" "NetStatus"              "/Applications/NetStatus.app"
 
 # My own apps, from github.com/vcamaral/homebrew-tap
 brew tap vcamaral/tap &>/dev/null
